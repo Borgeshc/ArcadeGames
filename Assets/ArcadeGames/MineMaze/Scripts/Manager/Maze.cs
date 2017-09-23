@@ -116,7 +116,7 @@ public class Maze : MonoBehaviour
 
     void CreateFloors()
     {
-        initialPos = new Vector3((-xSize / 2) + floorLength + .5f, 0f, (-ySize / 2) + floorLength / 2);
+        initialPos = new Vector3((-xSize / 2) + floorLength + 1f, -1f, (-ySize / 2) + floorLength / 2);
         Vector3 myPos = initialPos;
         GameObject clone;
         GameObject floorPrefab;
@@ -131,7 +131,7 @@ public class Maze : MonoBehaviour
                 else
                     floorPrefab = floorPrefabTwo;
 
-                myPos = new Vector3(initialPos.x + (j * floorLength) - floorLength / 2, (floorPrefab.transform.localScale.y * .5f), initialPos.z + (i * floorLength) - floorLength / 2);
+                myPos = new Vector3(initialPos.x + (j * floorLength) - floorLength / 2, (floorPrefab.transform.localScale.y * .5f) + initialPos.y, initialPos.z + (i * floorLength) - floorLength / 2);
                 clone = Instantiate(floorPrefab, myPos, Quaternion.Euler(90, 0, 0)) as GameObject;
                 clone.transform.parent = floorContainer.transform;
                 clone.name = "Floor";

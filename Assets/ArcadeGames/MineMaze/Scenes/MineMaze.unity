@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 624492818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 5}
+  m_LocalPosition: {x: 0, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -228,10 +228,6 @@ Prefab:
     - target: {fileID: 4392724440866688, guid: f7089e624a90052408040a0e793cf003, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1450524673114762, guid: f7089e624a90052408040a0e793cf003, type: 2}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7089e624a90052408040a0e793cf003, type: 2}
@@ -347,8 +343,8 @@ MonoBehaviour:
     type: 2}
   floorPrefabTwo: {fileID: 1470898958734272, guid: b22c07492e668d044ba802149f9bfb31,
     type: 2}
-  wallLength: 1
-  floorLength: 1
+  wallLength: 2
+  floorLength: 2
   width: 25
   height: 25
 --- !u!4 &1919427416
