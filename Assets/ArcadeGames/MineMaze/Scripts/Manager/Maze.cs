@@ -14,8 +14,11 @@ public class Maze : MonoBehaviour
     }
 
     public GameObject wallPrefab;
+    public GameObject floorPrefabOne;
+    public GameObject floorPrefabTwo;
 
     public float wallLength = 1.0f;
+    public float floorLength = 1.0f;
     [Range(1, 100)]
     public int width = 15;
     [Range(1, 100)]
@@ -26,6 +29,7 @@ public class Maze : MonoBehaviour
     Vector3 initialPos;
 
     public static GameObject wallContainer;
+    public static GameObject floorContainer;
 
     Cell[] cells;
 
@@ -46,17 +50,20 @@ public class Maze : MonoBehaviour
         xSize = width;
         ySize = height;
         CreateWalls();
+        CreateFloors();
     }
 
     public void GenerateMaze()
     {
         Reset();
         CreateWalls();
+        CreateFloors();
     }
 
     void Reset()
     {
         Destroy(wallContainer);
+        Destroy(floorContainer);
 
         currentCell = 0;
         totalCells = 0;
@@ -72,6 +79,8 @@ public class Maze : MonoBehaviour
     {
         wallContainer = new GameObject();
         wallContainer.name = "MazeWalls";
+        floorContainer = new GameObject();
+        floorContainer.name = "MazeFloors";
         totalCells = xSize * ySize;
         lastCells = new List<int>();
         initialPos = new Vector3((-xSize / 2) + wallLength, 0f, (-ySize / 2) + wallLength / 2);
@@ -86,7 +95,7 @@ public class Maze : MonoBehaviour
                 myPos = new Vector3(initialPos.x + (j * wallLength) - wallLength / 2, (wallPrefab.transform.localScale.y * .5f), initialPos.z + (i * wallLength) - wallLength / 2);
                 clone = Instantiate(wallPrefab, myPos, Quaternion.identity) as GameObject;
                 clone.transform.parent = wallContainer.transform;
-                clone.name = "Wall";
+                clone.name = "Wall1";
             }
         }
 
@@ -98,11 +107,36 @@ public class Maze : MonoBehaviour
                 myPos = new Vector3(initialPos.x + (j * wallLength), (wallPrefab.transform.localScale.y * .5f), initialPos.z + (i * wallLength) - wallLength);
                 clone = Instantiate(wallPrefab, myPos, Quaternion.Euler(0, 90, 0)) as GameObject;
                 clone.transform.parent = wallContainer.transform;
-                clone.name = "Wall";
+                clone.name = "Wall2";
             }
         }
 
         CreateCells();
+    }
+
+    void CreateFloors()
+    {
+        initialPos = new Vector3((-xSize / 2) + floorLength + .5f, 0f, (-ySize / 2) + floorLength / 2);
+        Vector3 myPos = initialPos;
+        GameObject clone;
+        GameObject floorPrefab;
+
+        //construct the floor
+        for (int i = 0; i < ySize; i++)
+        {
+            for (int j = 0; j <= xSize; j++)
+            {
+                if ((i + j) % 2 == 0)
+                    floorPrefab = floorPrefabOne;
+                else
+                    floorPrefab = floorPrefabTwo;
+
+                myPos = new Vector3(initialPos.x + (j * floorLength) - floorLength / 2, (floorPrefab.transform.localScale.y * .5f), initialPos.z + (i * floorLength) - floorLength / 2);
+                clone = Instantiate(floorPrefab, myPos, Quaternion.Euler(90, 0, 0)) as GameObject;
+                clone.transform.parent = floorContainer.transform;
+                clone.name = "Floor";
+            }
+        }
     }
 
     void CreateCells()
