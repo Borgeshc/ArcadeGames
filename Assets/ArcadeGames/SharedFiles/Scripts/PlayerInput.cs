@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -11,11 +12,15 @@ public class PlayerInput : MonoBehaviour
     public static bool isJumping;
     public static bool isFiring;
 
+    public InputDevice inputDevices
+    { get; set; } 
+
     Controls controls;
     string saveData;
 
     void OnEnable()
     {
+        inputDevices = GetComponent<InputDevice>();
         controls = Controls.CreateWithDefaultBindings();
     }
 
